@@ -1,5 +1,5 @@
-import { renderTemplate, RenderPosition } from "../render";
-import { createPopUpTemplate } from "../view/popup-view";
+import { render, RenderPosition } from "../render";
+import PopUpView from "../view/popup-view";
 import { init } from "../main";
 
 export const showPopUp = (event) => {
@@ -11,7 +11,7 @@ export const showPopUp = (event) => {
 
 
         const targetMovie = init.movies.filter(movie => movie.id === +eventTarget.id)[0];
-        renderTemplate(document.body, createPopUpTemplate(targetMovie), RenderPosition.BEFOREEND);
+        render(document.body, new PopUpView(targetMovie), RenderPosition.BEFOREEND)
         // Set PopUp removing
         popUp = document.body.querySelector('.film-details');
         const popUpCloseButton = popUp.querySelector('.film-details__close-btn');

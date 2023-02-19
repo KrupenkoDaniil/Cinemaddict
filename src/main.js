@@ -1,27 +1,29 @@
 import * as consts from "./consts";
 import { generateMovies, getMovies } from "./mock/generate-data";
-import { renderTemplate, RenderPosition } from "./render";
-import { createHeaderTemplate } from "./view/header-view";
-import { createMenuTemplate } from "./view/menu-view";
-import { createSortTemplate } from "./view/sort-view";
-import { createMoviesListTemplate } from "./view/movies-list-view";
-import { createFooterTemplate } from "./view/footer-view";
-import { showMovies } from "./modules/show-movies";
+import { render, RenderPosition } from "./render";
 import { setKeyEvents } from "./modules/key-events";
 import { showPopUp } from "./modules/show-popup";
+import { showMovies } from "./modules/show-movies";
+
+// Import Classes
+import HeaderView from "./view/header-view";
+import MenuView from "./view/menu-view";
+import SortView from "./view/sort-view";
+import MoviesListView from "./view/movies-list-view";
+import FooterView from "./view/footer-view";
 
 export const init = (movies) => {
     init.movies = movies;
     init.moviesAmount = movies.length;
 
-    // Render Header
+    // // Render Header
     const headerContainer = document.querySelector('.header');
-    renderTemplate(headerContainer, createHeaderTemplate(), RenderPosition.BEFOREEND);
+    render(headerContainer, new HeaderView(), RenderPosition.BEFOREEND)
 
-    // Render Main Section
+    // // Render Main Section
     const mainContainer = document.querySelector('.main');
 
-    // Set PopUp
+    // // Set PopUp
     mainContainer.addEventListener('click', showPopUp);
 
     // Render Menu
@@ -29,13 +31,13 @@ export const init = (movies) => {
     const browsingHistory = movies.filter(movie => movie.user_details.aleady_watched);
     const favoritesList = movies.filter(movie => movie.user_details.favorite); //TODO: deal with it someday!
 
-    renderTemplate(mainContainer, createMenuTemplate(watchList.length, browsingHistory.length, favoritesList.length), RenderPosition.BEFOREEND);
+    render(mainContainer, new MenuView(watchList.length, browsingHistory.length, favoritesList.length), RenderPosition.BEFOREEND);
 
     // Render Sort
-    renderTemplate(mainContainer, createSortTemplate(), RenderPosition.BEFOREEND);
+    render(mainContainer, new SortView(), RenderPosition.BEFOREEND);
 
     // Render Movies List
-    renderTemplate(mainContainer, createMoviesListTemplate(init.moviesAmount), RenderPosition.BEFOREEND);
+    render(mainContainer, new MoviesListView(init.moviesAmount), RenderPosition.BEFOREEND);
 
     if (init.moviesAmount) {
         const moviesContainer = mainContainer.querySelector('.films-list__container');
@@ -53,7 +55,7 @@ export const init = (movies) => {
 
     // Render Footer
     const footerContainer = document.querySelector('.footer__statistics');
-    renderTemplate(footerContainer, createFooterTemplate(init.moviesAmount), RenderPosition.BEFOREEND);
+    render(footerContainer, new FooterView(init.moviesAmount), RenderPosition.BEFOREEND);
 }
 
 getMovies().then(() => {
@@ -61,5 +63,8 @@ getMovies().then(() => {
     setKeyEvents();
     init(generatedMovies);
 });
+
+
+
 
 

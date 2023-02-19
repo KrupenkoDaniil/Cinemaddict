@@ -1,6 +1,6 @@
 
-// eec614f0
-export const MOVIES_API_URL = 'http://www.omdbapi.com?apikey=eec614f0&s="marvel"';
+// eec614f0 Даня прогер №1
+export const MOVIES_API_URL = 'http://www.omdbapi.com?apikey=eec614f0&s="batman"';
 export const DESCRIPTION_API_URL = 'https://jsonplaceholder.typicode.com/posts';
 export const COMMENT_API_URL = 'https://jsonplaceholder.typicode.com/comments';
 

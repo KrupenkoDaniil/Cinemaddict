@@ -1,4 +1,6 @@
-export const createMovieCardTemplate = (movie) => {
+import AbstractView from "./abstract-view";
+
+const createMovieCardTemplate = (movie) => {
     let description = movie.film_info.description;
     description = description.length < 140 ? description : description.slice(0, description.length - 2) + '...';
 
@@ -25,4 +27,19 @@ export const createMovieCardTemplate = (movie) => {
             </div>
         </article>
     `;
+}
+
+export default class MovieCardView extends AbstractView {
+    #movie = null;
+
+    constructor(movie) {
+        super();
+
+        this.#movie = movie;
+    }
+
+    get template() {
+        return createMovieCardTemplate(this.#movie);
+    }
+
 }

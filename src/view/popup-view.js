@@ -1,4 +1,5 @@
-import { createCommentTemplate } from "./comment-view";
+import AbstractView from "./abstract-view";
+import CommentsView from "./comment-view";
 
 export const createPopUpTemplate = (movie) => {
     const runtimeInMinutes = movie.film_info.runtime;
@@ -76,45 +77,59 @@ export const createPopUpTemplate = (movie) => {
                 </div>
 
                 <div class="film-details__bottom-container">
-                <section class="film-details__comments-wrap">
-                    <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${movie.comments.length}</span></h3>
+                    <section class="film-details__comments-wrap">
+                        <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${movie.comments.length}</span></h3>
 
-                    <ul class="film-details__comments-list">
-                        ${movie.comments.map(comment => createCommentTemplate(comment)).join(' ')}
-                    </ul>
+                        <ul class="film-details__comments-list">
+                            ${movie.comments.map(comment => new CommentsView(comment).template).join(' ')}
+                        </ul>
 
-                    <div class="film-details__new-comment">
-                        <div class="film-details__add-emoji-label"></div>
+                        <div class="film-details__new-comment">
+                            <div class="film-details__add-emoji-label"></div>
 
-                        <label class="film-details__comment-label">
-                            <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
-                        </label>
-
-                        <div class="film-details__emoji-list">
-                            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
-                            <label class="film-details__emoji-label" for="emoji-smile">
-                            <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
+                            <label class="film-details__comment-label">
+                                <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
                             </label>
 
-                            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping">
-                            <label class="film-details__emoji-label" for="emoji-sleeping">
-                            <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
-                            </label>
+                            <div class="film-details__emoji-list">
+                                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
+                                <label class="film-details__emoji-label" for="emoji-smile">
+                                    <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
+                                </label>
 
-                            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke">
-                            <label class="film-details__emoji-label" for="emoji-puke">
-                            <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
-                            </label>
+                                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping">
+                                <label class="film-details__emoji-label" for="emoji-sleeping">
+                                    <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
+                                </label>
 
-                            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry">
-                            <label class="film-details__emoji-label" for="emoji-angry">
-                            <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
-                            </label>
+                                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke">
+                                <label class="film-details__emoji-label" for="emoji-puke">
+                                    <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
+                                </label>
+
+                                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry">
+                                <label class="film-details__emoji-label" for="emoji-angry">
+                                    <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
                 </div>
             </form>
         </section>
     `
+}
+
+export default class PopUpView extends AbstractView {
+    #movie = null;
+
+    constructor(movie) {
+        super();
+
+        this.#movie = movie;
+    }
+
+    get template() {
+        return createPopUpTemplate(this.#movie);
+    }
 }

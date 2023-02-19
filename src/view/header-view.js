@@ -1,5 +1,6 @@
+import AbstractView from "./abstract-view";
 
-export const createHeaderTemplate = () => {
+const createHeaderTemplate = () => {
     return `
         <h1 class="header__logo logo">Cinemaddict</h1>
 
@@ -9,3 +10,15 @@ export const createHeaderTemplate = () => {
         </section>
     `;
 };
+
+export default class HeaderView extends AbstractView {
+    
+    constructor() {
+        super();
+    }
+
+    get template() {
+        return createHeaderTemplate();
+    }
+
+}

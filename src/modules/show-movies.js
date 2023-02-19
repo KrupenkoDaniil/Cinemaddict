@@ -1,6 +1,6 @@
 import * as consts from "../consts";
-import { renderTemplate, RenderPosition } from "../render";
-import { createMovieCardTemplate } from "../view/movie-card-view";
+import MovieCardView from "../view/movie-card-view";
+import { render, RenderPosition } from "../render";
 
 export const showMovies = (container, movies) => {
     if (showMovies.movies === undefined) {
@@ -11,6 +11,6 @@ export const showMovies = (container, movies) => {
         loopNumber = showMovies.movies.length;
     }
     for (let i = 0; i < loopNumber; i++) {
-        renderTemplate(container, createMovieCardTemplate(showMovies.movies.pop()), RenderPosition.BEFOREEND);
+        render(container, new MovieCardView(showMovies.movies.pop()), RenderPosition.BEFOREEND);
     }
 }

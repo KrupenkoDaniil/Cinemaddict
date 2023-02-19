@@ -1,6 +1,7 @@
+import AbstractView from "./abstract-view";
 import * as consts from "../consts";
 
-export const createCommentTemplate = (comment) => {
+const createCommentTemplate = (comment) => {
     return `
             <li class="film-details__comment">
                 <span class="film-details__comment-emoji">
@@ -16,4 +17,19 @@ export const createCommentTemplate = (comment) => {
                 </div>
             </li>
     `
+}
+
+export default class CommentView extends AbstractView {
+    #comment = null;
+
+    constructor(comment) {
+        super();
+
+        this.#comment = comment;
+    }
+
+    get template() {
+        return createCommentTemplate(this.#comment);
+    }
+
 }
