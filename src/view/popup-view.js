@@ -1,7 +1,7 @@
 import AbstractView from "./abstract-view";
 import CommentsView from "./comment-view";
 
-export const createPopUpTemplate = (movie) => {
+const createPopUpTemplate = (movie) => {
     const runtimeInMinutes = movie.film_info.runtime;
 
     return `

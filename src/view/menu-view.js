@@ -1,6 +1,6 @@
 import AbstractView from "./abstract-view";
 
-export const createMenuTemplate = (watchlistAmount, browsingHistoryAmount, favoritesAmount) => {
+const createMenuTemplate = (watchlistAmount, browsingHistoryAmount, favoritesAmount) => {
     //TODO: Сделать через цикл (один аргумент filters(сразу с amounts))
 
     return `

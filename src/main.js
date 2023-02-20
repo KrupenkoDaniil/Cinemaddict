@@ -1,10 +1,3 @@
-import * as consts from "./consts";
-import { generateMovies, getMovies } from "./mock/generate-data";
-import { render, RenderPosition } from "./render";
-import { setKeyEvents } from "./modules/key-events";
-import { showPopUp } from "./modules/show-popup";
-import { showMovies } from "./modules/show-movies";
-
 // Import Classes
 import HeaderView from "./view/header-view";
 import MenuView from "./view/menu-view";
@@ -12,19 +5,28 @@ import SortView from "./view/sort-view";
 import MoviesListView from "./view/movies-list-view";
 import FooterView from "./view/footer-view";
 
+// Import Modules
+import { generateMovies, getMovies } from "./mock/generate-data";
+import { render, RenderPosition } from "./render";
+import { setKeyEvents } from "./modules/key-events";
+import { popUpHalder } from "./modules/show-popup";
+import { showMovies } from "./modules/show-movies";
+
+
+
 export const init = (movies) => {
     init.movies = movies;
     init.moviesAmount = movies.length;
 
-    // // Render Header
+    // Render Header
     const headerContainer = document.querySelector('.header');
     render(headerContainer, new HeaderView(), RenderPosition.BEFOREEND)
 
-    // // Render Main Section
+    // Render Main Section
     const mainContainer = document.querySelector('.main');
 
-    // // Set PopUp
-    mainContainer.addEventListener('click', showPopUp);
+    // Set PopUp
+    mainContainer.addEventListener('click', popUpHalder);
 
     // Render Menu
     const watchList = movies.filter(movie => movie.user_details.watchlist);
