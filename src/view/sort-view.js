@@ -1,13 +1,22 @@
 import AbstractView from "./abstract-view";
+import { SORT_CATEGORIES } from "../consts";
 
-const createSortTemplate = (currentSortType) => {
+const createSortTemplate = (activeSortType) => {
     //TODO: сделать через через цикл (добавить в consts) + текущий sortType
+    let sortContent = '';
+    for (let key in SORT_CATEGORIES) {
+        const currentSortType = SORT_CATEGORIES[key];
+        sortContent += currentSortType === activeSortType ?
+            `<li><a href="#" class="sort__button sort__button--active">${currentSortType}</a></li>` :
+            `<li><a href="#" class="sort__button">${currentSortType}</a></li>`;
+    }
+
 
     return `
         <ul class="sort">
-            <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
-            <li><a href="#" class="sort__button">Sort by date</a></li>
-            <li><a href="#" class="sort__button">Sort by rating</a></li>
+
+            ${sortContent}
+            
         </ul>
     `;
 }

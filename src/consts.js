@@ -15,3 +15,9 @@ export const EMOTIONS = {
 export const AGE_RATING = ['0+', '6+', '12+', '16+', '18+'];
 export const MIN_MOVIES_AMOUNT = 5;
 export const MAX_COMMENT_AMOUNT = 15;
+
+export const SORT_CATEGORIES = {
+    BY_DEFAULT: 'Sort by default',
+    BY_DATE: 'Sort by date',
+    BY_RATING: 'Sort by rating'
+}

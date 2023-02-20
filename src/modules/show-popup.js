@@ -8,14 +8,14 @@ export const removePopUp = () => {
 }
 
 const createPopUp = (eventTarget) => {
-    const targetMovie = init.movies.filter(movie => movie.id === +eventTarget.id)[0];
+    const targetMovie = init.MOVIE_FILTERS.ALL_MOVIES.movies.filter(movie => movie.id === +eventTarget.id)[0];
     render(document.body, new PopUpView(targetMovie), RenderPosition.BEFOREEND);
 }
 
 export const popUpHalder = (event) => {
     const eventTarget = event.target.closest('.film-card');
     if (eventTarget) {
-        
+
         // Remove remain PopUp
         removePopUp();
 

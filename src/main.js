@@ -11,12 +11,42 @@ import { render, RenderPosition } from "./render";
 import { setKeyEvents } from "./modules/key-events";
 import { popUpHalder } from "./modules/show-popup";
 import { showMovies } from "./modules/show-movies";
-
+import * as consts from "./consts";
 
 
 export const init = (movies) => {
-    init.movies = movies;
-    init.moviesAmount = movies.length;
+    init.MOVIE_FILTERS = {
+        ALL_MOVIES: {
+            title: 'All movies',
+            active: true,
+            movies: movies,
+            amount: movies.length
+        },
+        WATCHLIST: {
+            title: 'Watchlist',
+            active: false,
+            movies: movies.filter(movie => movie.user_details.watchlist),
+            get amount() {
+                return this.movies.length;
+            }
+        },
+        HISTORY: {
+            title: 'History',
+            active: false,
+            movies: movies.filter(movie => movie.user_details.aleady_watched),
+            get amount() {
+                return this.movies.length;
+            }
+        },
+        FAVORITES: {
+            title: 'Favorites',
+            active: false,
+            movies: movies.filter(movie => movie.user_details.favorite),
+            get amount() {
+                return this.movies.length;
+            }
+        }
+    } //? может вынести в отдельную функцию?
 
     // Render Header
     const headerContainer = document.querySelector('.header');
@@ -29,24 +59,20 @@ export const init = (movies) => {
     mainContainer.addEventListener('click', popUpHalder);
 
     // Render Menu
-    const watchList = movies.filter(movie => movie.user_details.watchlist);
-    const browsingHistory = movies.filter(movie => movie.user_details.aleady_watched);
-    const favoritesList = movies.filter(movie => movie.user_details.favorite); //TODO: deal with it someday!
-
-    render(mainContainer, new MenuView(watchList.length, browsingHistory.length, favoritesList.length), RenderPosition.BEFOREEND);
+    render(mainContainer, new MenuView(init.MOVIE_FILTERS), RenderPosition.BEFOREEND);
 
     // Render Sort
-    render(mainContainer, new SortView(), RenderPosition.BEFOREEND);
+    render(mainContainer, new SortView(consts.SORT_CATEGORIES.BY_DEFAULT), RenderPosition.BEFOREEND);
 
     // Render Movies List
-    render(mainContainer, new MoviesListView(init.moviesAmount), RenderPosition.BEFOREEND);
+    render(mainContainer, new MoviesListView(init.MOVIE_FILTERS.ALL_MOVIES.amount), RenderPosition.BEFOREEND);
 
-    if (init.moviesAmount) {
+    if (init.MOVIE_FILTERS.ALL_MOVIES.amount) {
         const moviesContainer = mainContainer.querySelector('.films-list__container');
 
         const showMoreButton = mainContainer.querySelector('.films-list__show-more');
         showMoreButton.addEventListener('click', () => {
-            showMovies(moviesContainer, init.movies);
+            showMovies(moviesContainer, init.MOVIE_FILTERS.ALL_MOVIES.movies);
 
             if (showMovies.movies.length <= 0) {
                 showMoreButton.style.display = 'none';
@@ -57,7 +83,7 @@ export const init = (movies) => {
 
     // Render Footer
     const footerContainer = document.querySelector('.footer__statistics');
-    render(footerContainer, new FooterView(init.moviesAmount), RenderPosition.BEFOREEND);
+    render(footerContainer, new FooterView(init.MOVIE_FILTERS.ALL_MOVIES.amount), RenderPosition.BEFOREEND);
 }
 
 getMovies().then(() => {
