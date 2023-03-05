@@ -81,7 +81,7 @@ const createPopUpTemplate = (movie) => {
                         <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${movie.comments.length}</span></h3>
 
                         <ul class="film-details__comments-list">
-                            ${movie.comments.map(comment => new CommentsView(comment).template).join(' ')}
+                            ${movie.comments.map(comment => new CommentsView(comment).template).join(' ')} 
                         </ul>
 
                         <div class="film-details__new-comment">
@@ -132,4 +132,23 @@ export default class PopUpView extends AbstractView {
     get template() {
         return createPopUpTemplate(this.#movie);
     }
+
+    setClickHandler = (callback) => {
+        this._callback.click = callback; // в объект добавляем ключ с функцией в виде значения
+        this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#clickHandler);
+    }
+
+    #clickHandler = (event) => {
+        // Логика текущего компонента:
+
+        // Логика callback(а):
+        this._callback.click(event);
+    }
+
+    get parseDataToState() {
+    }
+
+    get parseStateToData() {
+    }
 }
+//TODO: Сделать коменты через метод

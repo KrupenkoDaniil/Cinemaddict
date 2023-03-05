@@ -34,12 +34,10 @@ export default class MovieCardView extends AbstractView {
 
     constructor(movie) {
         super();
-
         this.#movie = movie;
     }
 
     get template() {
         return createMovieCardTemplate(this.#movie);
     }
-
 }

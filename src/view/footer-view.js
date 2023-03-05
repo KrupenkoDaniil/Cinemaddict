@@ -11,12 +11,10 @@ export default class FooterView extends AbstractView {
 
     constructor(moviesAmount) {
         super();
-
         this.#moviesAmount = moviesAmount;
     }
 
     get template() {
         return createFooterTemplate(this.#moviesAmount);
     }
-
 }

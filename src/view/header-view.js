@@ -12,7 +12,6 @@ const createHeaderTemplate = () => {
 };
 
 export default class HeaderView extends AbstractView {
-    
     constructor() {
         super();
     }
@@ -20,5 +19,4 @@ export default class HeaderView extends AbstractView {
     get template() {
         return createHeaderTemplate();
     }
-
 }

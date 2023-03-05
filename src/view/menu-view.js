@@ -12,7 +12,6 @@ const createMenuTemplate = (movieFilters) => {
         }
 
         menuContent += `<a href="#${currentFilter.title.split(' ')[0]}" class="main-navigation__item">${currentFilter.title} ${filterIsAllMovies ? '' : `<span class="main-navigation__item-count">${currentFilter.amount}</span>`} </a>`;
-
     }
 
     return `
@@ -28,20 +27,14 @@ const createMenuTemplate = (movieFilters) => {
 }
 
 export default class MenuView extends AbstractView {
-    #watchlistAmount = null;
-    #browsingHistoryAmount = null;
-    #favoritesAmount = null;
+    #movieFilters = null;
 
-    constructor(watchlistAmount, browsingHistoryAmount, favoritesAmount) {
+    constructor(movieFilters) {
         super();
-
-        this.#watchlistAmount = watchlistAmount;
-        this.#browsingHistoryAmount = browsingHistoryAmount;
-        this.#favoritesAmount = favoritesAmount;
+        this.#movieFilters = movieFilters;
     }
 
     get template() {
-        return createMenuTemplate(this.#watchlistAmount, this.#browsingHistoryAmount, this.#favoritesAmount);
+        return createMenuTemplate(this.#movieFilters);
     }
-
 }

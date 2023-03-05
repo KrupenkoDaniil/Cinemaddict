@@ -7,7 +7,6 @@ const createLoadingTemplate = () => {
 }
 
 export default class LoadingView extends AbstractView {
-
     constructor() {
         super();
     }
@@ -15,5 +14,4 @@ export default class LoadingView extends AbstractView {
     get template() {
         return createLoadingTemplate();
     }
-
 }   

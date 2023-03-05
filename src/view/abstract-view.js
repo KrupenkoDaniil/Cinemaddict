@@ -2,6 +2,7 @@ import { createElement } from "../render";
 
 export default class AbstractView {
     #element = null;
+    _callback = {};
 
     constructor() {
         if (new.target === AbstractView) {
@@ -16,8 +17,12 @@ export default class AbstractView {
         return this.#element;
     }
 
-    get template() { // Обязывает реализовать данный метов в наследнике
+    // Обязывает реализовать данный метод в наследнике
+    get template() {
         throw new Error('Abstract method not implemented: get template');
     }
 
+    removeElement() {
+        this.#element = null;
+    }
 }
